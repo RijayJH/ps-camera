@@ -34,7 +34,7 @@ RegisterNetEvent("ps-camera:savePhoto", function(url, streetName)
         image = url,
         location = location
     }
-    exports.ox_inventory:AddItem(src, "photo", 1, info)
+    exports.ox_inventory:AddItem(source, "photo", 1, info)
 end)
 
 
