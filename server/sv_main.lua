@@ -31,8 +31,8 @@ RegisterNetEvent("ps-camera:savePhoto", function(url, streetName)
     local location = streetName
 
     local info = {
-        image = url,
-        location = location
+        cam_image = url,
+        cam_location = location
     }
     exports.ox_inventory:AddItem(source, "photo", 1, info)
 end)
@@ -50,7 +50,7 @@ QBCore.Functions.CreateUseableItem("photo", function(source, item)
     local source = source
     local Player = QBCore.Functions.GetPlayer(source)
     if exports.ox_inventory:GetItem(source, item.name, nil, true) > 0 then
-        TriggerClientEvent("ps-camera:usePhoto", source, item.metadata.image, item.metadata.location)
+        TriggerClientEvent("ps-camera:usePhoto", source, item.metadata.cam_image, item.metadata.cam_location)
     end
 end)
 
