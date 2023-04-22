@@ -34,15 +34,14 @@ RegisterNetEvent("ps-camera:savePhoto", function(url, streetName)
         image = url,
         location = location
     }
-    player.Functions.AddItem("photo", 1, nil, info)
-    TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['photo'], "add")
+    exports.ox_inventory:AddItem(src, "photo", 1, info)
 end)
 
 
 QBCore.Functions.CreateUseableItem("camera", function(source, item)
     local source = source
     local Player = QBCore.Functions.GetPlayer(source)
-    if Player.Functions.GetItemByName(item.name) then
+    if exports.ox_inventory:GetItem(source, item.name, nil, true) > 0 then
         TriggerClientEvent("ps-camera:useCamera", source)
     end
 end)
@@ -50,15 +49,15 @@ end)
 QBCore.Functions.CreateUseableItem("photo", function(source, item)
     local source = source
     local Player = QBCore.Functions.GetPlayer(source)
-    if Player.Functions.GetItemByName(item.name) then
-        TriggerClientEvent("ps-camera:usePhoto", source, item.info.image, item.info.location)
+    if exports.ox_inventory:GetItem(source, item.name, nil, true) > 0 then
+        TriggerClientEvent("ps-camera:usePhoto", source, item.metadata.image, item.metadata.location)
     end
 end)
 
 function UseCam(source)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
-    if Player.Functions.GetItemByName('camera') then
+    if exports.ox_inventory:GetItem(src, 'camera', nil, true) > 0 then
         TriggerClientEvent("ps-camera:useCamera", src)
     else
         TriggerClientEvent('QBCore:Notify', src, "U don\'t have a camera", "error")
